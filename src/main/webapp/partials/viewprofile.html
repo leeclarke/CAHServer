@@ -1,0 +1,34 @@
+<div class="row-fluid">
+	<div class="span12">
+		<div class="span6 checkspace">
+			<div class='formContainer'>
+
+				  <div class="control-group" ng-class="{error: profileForm.site.$invalid}">
+				    <div><img class="avatar-img" ng-src="{{viewuser.picLink || 'img/robot.jpg'}}"></div>
+				    <div><h3>{{viewuser.userName}}</h3></div>
+				    <div>
+						<label>Date Joined</label><span class="form-display-txt">{{viewuser.createTime}}</span>
+					</div>
+				  </div>
+
+			</div>
+		</div>
+		<div class="span6 checkspace">
+			<h3>Pi Profile Summary</h3>
+			<div>Registered R-Pi:{{viewuser.piProfiles.length}}</div>
+			<ul class="pi-sum-view">
+				<li ng-repeat="profile in viewuser.piProfiles">
+					<a href="#/piprofile/{{profile.$piId}}">{{profile.name}}</a>
+				</li>
+			</ul>
+
+			<h3>Apps</h3>
+			<div>Apps Managed by Homepi: {{viewuser.managedApps.length}}</div>
+			<ul class="app-sum-view">
+				<li ng-repeat="apps in viewuser.managedApps">
+					<a href="#/apps/{{apps.$appId}}">{{apps.appName}}</a>
+				</li>
+			</ul>
+		</div>	
+	</div>
+</div>
