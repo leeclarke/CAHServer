@@ -1,7 +1,6 @@
 package com.meadowhawk.cah.util.service;
 
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.List;
 
 import javax.ws.rs.GET;
@@ -18,10 +17,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 
-import com.meadowhawk.cah.service.UserRESTService;
 import com.meadowhawk.cah.util.StringUtil;
 import com.meadowhawk.cah.util.model.PublicRESTDoc;
 import com.meadowhawk.cah.util.model.PublicRESTDocMethod;

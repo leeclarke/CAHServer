@@ -13,10 +13,6 @@ import com.meadowhawk.cah.model.CAHUser;
 import com.meadowhawk.cah.util.StringUtil;
 import com.meadowhawk.cah.util.model.GoogleInfo;
 import com.meadowhawk.cah.util.service.AuthRequiredBeforeException;
-import com.meadowhawk.cah.util.service.MaskData;
-import com.meadowhawk.homepi.dao.PiProfileDAO;
-import com.meadowhawk.homepi.model.ManagedApp;
-import com.meadowhawk.homepi.model.PiProfile;
 
 /**
  * @author lee
@@ -26,12 +22,7 @@ public class HomePiUserService {
 
 	@Autowired
 	CAHUserDAO homePiUserDao;
-	
-	@Autowired
-	DeviceManagementService managementService;
 
-	@Autowired
-	PiProfileDAO piProfileDAO;
 	
 	/**
 	 * Retrieve user by email address.
@@ -68,7 +59,7 @@ public class HomePiUserService {
 			updateUserData(hUser);
 			//TODO: Consider calling adaptor to update fields if diff from stored?
 		} catch(NoResultException nre){
-			hUser = UserAuthAdaptor.adaptGoogleInfo(user);
+		//	hUser = UserAuthAdaptor.adaptGoogleInfo(user);
 			homePiUserDao.save(hUser);
 		}
 		
@@ -82,7 +73,6 @@ public class HomePiUserService {
 	 * @param authToken
 	 * @return
 	 */
-	@MaskData
 	public CAHUser getUserData(String userName, String authToken) {
 		CAHUser hUser =  null;
 		try{
@@ -101,7 +91,6 @@ public class HomePiUserService {
 	 * @param authToken
 	 * @return
 	 */
-	@MaskData
 	public CAHUser getUserData(Long userId, String authToken) {
 		if(userId == null){
 			throw new CAHAppException(Status.BAD_REQUEST,"Invalid key value for request.");
@@ -127,7 +116,6 @@ public class HomePiUserService {
 	 * @deprecated
 	 */
 	@AuthRequiredBeforeException
-	@MaskData
 	public CAHUser updateUserData(String userName, String authToken, CAHUser updateUser) {
 		CAHUser hUser = null;
 			try {
@@ -155,7 +143,6 @@ public class HomePiUserService {
 	 * @return
 	 */
 	@AuthRequiredBeforeException
-	@MaskData
 	public CAHUser updateUserData(Long userId, String authToken, CAHUser updateUser) {
 		CAHUser hUser = null;
 		try {
@@ -194,89 +181,5 @@ public class HomePiUserService {
 		return false;
 	}
 
-
-	/**
-	 * Wrapped method allows for Annotation and AOP support. Different rules apply to the managemnetService as it is a PI only service.
-	 * @param userName
-	 * @param authToken
-	 * @param piSerialId
-	 * @return requested profile.
-	 */
-	@MaskData
-	public PiProfile getPiProfile(String userName, String authToken, String piSerialId) {
-		PiProfile profile = managementService.getPiProfile(piSerialId);
-		
-		return profile;
-	}
-
-
-	/**
-	 * Update PiProfile id user auth is valid.
-	 * @param userName
-	 * @param authToken
-	 * @param piSerialId
-	 * @param piProfile
-	 * @return
-	 */
-	@AuthRequiredBeforeException
-	public void updatePiProfile(String userName, String authToken, String piSerialId, PiProfile piProfile) {
-		PiProfile profile = managementService.getPiProfile(piSerialId);
-		//make updates
-		//TODO: Add ProfileAdaptort for copying updatable values.
-		profile.setIpAddress(piProfile.getIpAddress());
-		profile.setName(piProfile.getName());
-		profile.setSshPortNumber(piProfile.getSshPortNumber());
-		
-		managementService.updatePiProfile(profile);
-	}
-
-
-	/**
-	 * @param userName
-	 * @param authToken
-	 * @param piSerialId
-	 * @param appId
-	 */
-	@AuthRequiredBeforeException
-	public void addAppToProfile(String userName, String authToken, String piSerialId, Long appId) {
-		if(StringUtil.isNullOrEmpty(piSerialId) || appId == null){
-			throw new CAHAppException(Status.BAD_REQUEST,"Missing key values for request.");
-		}
-		CAHUser user = this.getUserData(userName, authToken);
-		PiProfile profile = managementService.getPiProfile(piSerialId);
-		ManagedApp ma = null;
-		
-		for (ManagedApp mApp : user.getManagedApps()) {
-			if(mApp.getAppId().equals(appId)){
-				ma = mApp;
-				break;
-			}
-		}
-		
-		if(ma == null){
-			throw new CAHAppException(Status.BAD_REQUEST,"Invlaid appi id.");
-		}
-		
-		profile.getManagedApps().add(ma);
-		piProfileDAO.update(profile);
-	}
-
-
-	/**
-	 * @param userName
-	 * @param authToken
-	 * @param piSerialId
-	 * @param appId
-	 */
-	@AuthRequiredBeforeException
-	public void deleteAppToProfile(String userName, String authToken, String piSerialId, Long appId) {
-		if(StringUtil.isNullOrEmpty(piSerialId) || appId == null){
-			throw new CAHAppException(Status.BAD_REQUEST,"Missing key values for request.");
-		}
-		
-		PiProfile profile = managementService.getPiProfile(piSerialId);
-
-		piProfileDAO.removeAppFromProfile(profile, appId);
-	}
 
 }

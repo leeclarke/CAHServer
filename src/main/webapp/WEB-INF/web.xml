@@ -22,11 +22,11 @@
 		<servlet-class>com.sun.jersey.spi.spring.container.servlet.SpringServlet</servlet-class>
 		<init-param>
 			<param-name>javax.ws.rs.Application</param-name>
-			<param-value>com.meadowhawk.homepi.rs.RSApplication</param-value>
+			<param-value>com.meadowhawk.cah.rs.RSApplication</param-value>
 		</init-param>
 		<init-param>
 			<param-name>com.sun.jersey.config.property.packages</param-name>
-			<param-value>com.meadowhawk.homepi.service;com.meadowhawk.homepi.util.service;com.meadowhawk.homepi.rs</param-value>
+			<param-value>com.meadowhawk.cah.service;com.meadowhawk.cah.util.service;com.meadowhawk.cah.rs</param-value>
 		</init-param>
 
 		<init-param>

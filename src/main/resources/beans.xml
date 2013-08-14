@@ -17,7 +17,6 @@
 		<property name="locations">
 		  <list>
 				<value>classpath:restdocs.properties</value>
-				<value>classpath:update.properties</value>
 				<value>classpath:db.properties</value>
 		  </list>
 		</property>

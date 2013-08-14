@@ -21,9 +21,6 @@ import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
 import com.meadowhawk.cah.rs.JodaDateTimeSerializer;
-import com.meadowhawk.homepi.model.ManagedApp;
-import com.meadowhawk.homepi.model.MaskableDataObject;
-import com.meadowhawk.homepi.model.PiProfile;
 
 /**
  * HomePi user.
@@ -37,7 +34,7 @@ import com.meadowhawk.homepi.model.PiProfile;
 		@NamedQuery(name="CAHUser.findByUserId", query = "select u from CAHUser u where u.userId = :uid"),
 		@NamedQuery(name="CAHUser.authToken", query="select count(*) from CAHUser u where u.userName = :userName and u.googleAuthToken = :authToken")})
 @JsonFilter("privateView")
-public class CAHUser extends MaskableDataObject implements Serializable{
+public class CAHUser {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -77,12 +74,7 @@ public class CAHUser extends MaskableDataObject implements Serializable{
 	@Column(name = "full_name")
 	private String fullName;
 	
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
-	private List<PiProfile> piProfiles = new ArrayList<PiProfile>(0);
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
-	private List<ManagedApp> managedApps = new ArrayList<ManagedApp>(0);
-	
 	public Long getUserId() {
 		return userId;
 	}
@@ -116,12 +108,6 @@ public class CAHUser extends MaskableDataObject implements Serializable{
 		this.email = email;
 	}
 	
-	public List<PiProfile> getPiProfiles() {
-		return piProfiles;
-	}
-	public void setPiProfiles(List<PiProfile> piProfiles) {
-		this.piProfiles = piProfiles;
-	}
 	public String getLocale() {
 		return locale;
 	}
@@ -159,20 +145,4 @@ public class CAHUser extends MaskableDataObject implements Serializable{
 		this.googleAuthToken = googleAuthToken;
 	}
 	
-	@Override
-	public void setMaskedView(boolean maskView) {
-		super.setMaskedView(maskView);
-		for (PiProfile profile : this.piProfiles) {
-			profile.setMaskedView(isMaskedView());	
-		}
-		for (ManagedApp ma : this.managedApps) {
-			ma.setMaskedView(isMaskedView());
-		}
-	}
-	public List<ManagedApp> getManagedApps() {
-		return this.managedApps;
-	}
-	public void setManagedApps(List<ManagedApp> managedApps) {
-		this.managedApps = managedApps;
-	}
 }
