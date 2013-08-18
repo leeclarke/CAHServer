@@ -1,0 +1,49 @@
+<html>
+<title>Chromecast Against Humanity Game</title>
+<script src="https://www.gstatic.com/cast/js/receiver/1.0/cast_receiver.js"></script>
+<script src="ChromecastAgainstHumanity.js"></script>
+<script src="board.js"></script>
+<script type="text/javascript">
+	window.onload = onload
+	//Dummy reciever just to probe things are working.
+	
+	function onLoad(){
+		var appId = 'a5db9048-8024-476f-9b3d-73fad64f328c';
+		console.log("Test log");
+		// var chromecastApp = new cast.receiver.Receiver(appId, [cast.receiver.RemoteMedia.NAMESPACE],"", 5);
+
+  //       var remoteMedia = new cast.receiver.RemoteMedia(); 
+  //       remoteMedia.addChannelFactory(chromecastApp.createChannelFactory(cast.receiver.RemoteMedia.NAMESPACE));
+
+  //      var receiver = new cast.receiver.Receiver(appId, ['ramp', 'other']);
+
+		// var rampHandler = new cast.receiver.RemoteMedia();
+		// rampHandler.addChannelFactory(receiver.createChannelFactory('ramp'));
+
+		// var channelHandler = new cast.receiver.ChannelHandler('other');
+		// channelHandler.addChannelFactory(receiver.createChannelFactory('other'));
+
+		// receiver.start(); 	
+	  var canvas = document.getElementById("board");
+      var context = canvas.getContext("2d");
+      var mBoard = new board(context);
+      var chromecastApp = new cast.receiver.Receiver(appId, [ cast.cah.PROTOCOL ], "", 5);
+     // var favIcon = document.getElementById("favIcon");
+
+      mBoard.clear();
+      mBoard.drawGrid();
+      var gameEngine = new cast.TicTacToe(mBoard);
+      gameEngine.mChannelHandler.addChannelFactory(chromecastApp.createChannelFactory(cast.cah.PROTOCOL));
+      chromecastApp.start();
+	}
+
+
+</script>
+<style type="text/css">h2 {color: #ffffff;} </style>
+<body>
+	<h2>This is the Chromecast Against Humanity page.. nothing interesting here at the moment</h2>
+	<img src="img/piratelogo.png"><br>
+  <video id="vid" style="position:absolute;top:0;left:0;height:100%;width:100%" />
+</body>
+
+</html>
