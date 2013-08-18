@@ -19,6 +19,7 @@ var cast = window.cast || {};
    * @constructor
    */
   function TicTacToe(opt_board) {
+  	console.log("Enter TicTacToe obj");
     this.mBoard = opt_board;
     this.mPlayer1 = -1;
     this.mPlayer2 = -1;
