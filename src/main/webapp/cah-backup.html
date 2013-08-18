@@ -10,31 +10,18 @@
 	function onLoad(){
 		var appId = 'a5db9048-8024-476f-9b3d-73fad64f328c';
 		console.log("Test log");
-		// var chromecastApp = new cast.receiver.Receiver(appId, [cast.receiver.RemoteMedia.NAMESPACE],"", 5);
+	
+		var canvas = document.getElementById("board");
+		var context = canvas.getContext("2d");
+		var mBoard = new board(context);
+		var chromecastApp = new cast.receiver.Receiver("a5db9048-8024-476f-9b3d-73fad64f328c", [cast.TicTacToe.PROTOCOL ], "", 5);
+		// var favIcon = document.getElementById("favIcon");
 
-  //       var remoteMedia = new cast.receiver.RemoteMedia(); 
-  //       remoteMedia.addChannelFactory(chromecastApp.createChannelFactory(cast.receiver.RemoteMedia.NAMESPACE));
-
-  //      var receiver = new cast.receiver.Receiver(appId, ['ramp', 'other']);
-
-		// var rampHandler = new cast.receiver.RemoteMedia();
-		// rampHandler.addChannelFactory(receiver.createChannelFactory('ramp'));
-
-		// var channelHandler = new cast.receiver.ChannelHandler('other');
-		// channelHandler.addChannelFactory(receiver.createChannelFactory('other'));
-
-		// receiver.start(); 	
-	  var canvas = document.getElementById("board");
-      var context = canvas.getContext("2d");
-      var mBoard = new board(context);
-      var chromecastApp = new cast.receiver.Receiver(appId, [ cast.cah.PROTOCOL ], "", 5);
-     // var favIcon = document.getElementById("favIcon");
-
-      mBoard.clear();
-      mBoard.drawGrid();
-      var gameEngine = new cast.TicTacToe(mBoard);
-      gameEngine.mChannelHandler.addChannelFactory(chromecastApp.createChannelFactory(cast.cah.PROTOCOL));
-      chromecastApp.start();
+		mBoard.clear();
+		mBoard.drawGrid();
+		var gameEngine = new cast.TicTacToe(mBoard);
+		gameEngine.mChannelHandler.addChannelFactory(chromecastApp.createChannelFactory(cast.TicTacToe.PROTOCOL));
+		chromecastApp.start();
 	}
 
 

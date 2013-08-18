@@ -4,7 +4,7 @@ var cast = window.cast || {};
 (function() {
   'use strict';
 
-  TicTacToe.PROTOCOL = 'com.google.chromecast.demo.tictactoe';
+  TicTacToe.PROTOCOL = 'com.meadowhawk.chromecast.cah';
 
   TicTacToe.PLAYER = {
     O: 'O',
