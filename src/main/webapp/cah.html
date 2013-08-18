@@ -2,6 +2,8 @@
 <link id="favIcon" rel="icon" type="image/png" href="tictactoe.png"/>
 <title>Chromecast Against Humanity Game</title>
 <script src="https://www.gstatic.com/cast/js/receiver/1.0/cast_receiver.js"></script>
+<script src=""ChromecastAgainstHumanity.js></script>
+<script src="board.js"></script>
 <script type="text/javascript">
 	window.onload = onload
 	//Dummy reciever just to probe things are working.
@@ -23,7 +25,7 @@
 		// channelHandler.addChannelFactory(receiver.createChannelFactory('other'));
 
 		// receiver.start(); 	
-		var canvas = document.getElementById("board");
+	  var canvas = document.getElementById("board");
       var context = canvas.getContext("2d");
       var mBoard = new board(context);
       var chromecastApp = new cast.receiver.Receiver(appId, [ cast.cah.PROTOCOL ], "", 5);
@@ -31,9 +33,9 @@
 
       mBoard.clear();
       mBoard.drawGrid();
-      // var gameEngine = new cast.TicTacToe(mBoard);
-      // gameEngine.mChannelHandler.addChannelFactory(
-      //     chromecastApp.createChannelFactory(cast.cah.PROTOCOL));
+      var gameEngine = new cast.TicTacToe(mBoard);
+      gameEngine.mChannelHandler.addChannelFactory(
+          chromecastApp.createChannelFactory(cast.cah.PROTOCOL));
       chromecastApp.start();
 	}
 
