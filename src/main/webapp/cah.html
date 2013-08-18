@@ -1,5 +1,4 @@
 <html>
-<link id="favIcon" rel="icon" type="image/png" href="tictactoe.png"/>
 <title>Chromecast Against Humanity Game</title>
 <script src="https://www.gstatic.com/cast/js/receiver/1.0/cast_receiver.js"></script>
 <script src="ChromecastAgainstHumanity.js"></script>
@@ -10,7 +9,7 @@
 	
 	function onLoad(){
 		var appId = 'a5db9048-8024-476f-9b3d-73fad64f328c';
-		
+		console.log();
 		// var chromecastApp = new cast.receiver.Receiver(appId, [cast.receiver.RemoteMedia.NAMESPACE],"", 5);
 
   //       var remoteMedia = new cast.receiver.RemoteMedia(); 
@@ -29,7 +28,7 @@
       var context = canvas.getContext("2d");
       var mBoard = new board(context);
       var chromecastApp = new cast.receiver.Receiver(appId, [ cast.cah.PROTOCOL ], "", 5);
-      var favIcon = document.getElementById("favIcon");
+     // var favIcon = document.getElementById("favIcon");
 
       mBoard.clear();
       mBoard.drawGrid();
@@ -44,6 +43,7 @@
 
 <body>
 	<h2>This is the Chromecast Against Humanity page.. nothing interesting here at the moment</h2>
+	<img src="img/piratelogo.png"><br>
   <video id="vid" style="position:absolute;top:0;left:0;height:100%;width:100%" />
 </body>
 
