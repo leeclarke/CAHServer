@@ -20,7 +20,6 @@
  * and capable of receiving and sending messages to the sender application.
  */
 
-// External namespace for cast specific javascript library
 var cast = window.cast || {};
 
 // Anonymous namespace
@@ -155,9 +154,12 @@ console.log('Creating TicTacToe object');
       console.log('mPlayer2: ' + this.mPlayer2);
 
       if (this.mPlayer1 != -1 && this.mPlayer2 != -1) {
+        console.log('board setup');
         this.mBoard.reset();
         this.startGame_();
+        console.log('end board setup');
       }
+      console.log('**** End onJoin');
     },
 
     /**
