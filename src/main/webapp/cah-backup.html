@@ -1,20 +1,19 @@
+<!DOCTYPE html>
 <html>
 <title>Chromecast Against Humanity Game</title>
-<script src="https://www.gstatic.com/cast/js/receiver/1.0/cast_receiver.js"></script>
-<script src="ChromecastAgainstHumanity.js"></script>
+<script src="https://www.gstatic.com/cast/js/receiver/09/cast_receiver.js"></script>
+<script src="tictactoe.js"></script>
 <script src="board.js"></script>
 <script type="text/javascript">
 	window.onload = onload
 	//Dummy reciever just to probe things are working.
 	
 	function onLoad(){
-		var appId = 'a5db9048-8024-476f-9b3d-73fad64f328c';
-		console.log("Test log");
-	
 		var canvas = document.getElementById("board");
 		var context = canvas.getContext("2d");
 		var mBoard = new board(context);
-		var chromecastApp = new cast.receiver.Receiver("a5db9048-8024-476f-9b3d-73fad64f328c", [cast.TicTacToe.PROTOCOL ], "", 5);
+		var chromecastApp = new cast.receiver.Receiver("a5db9048-8024-476f-9b3d-73fad64f328c", 
+			[cast.TicTacToe.PROTOCOL ], "", 5);
 		// var favIcon = document.getElementById("favIcon");
 
 		mBoard.clear();

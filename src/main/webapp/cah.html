@@ -1,35 +1,34 @@
 <!DOCTYPE html>
 <html>
-<title>Chromecast Against Humanity Game</title>
-<script src="https://www.gstatic.com/cast/js/receiver/09/cast_receiver.js"></script>
-<script src="tictactoe.js"></script>
-<script src="board.js"></script>
-<script type="text/javascript">
-	window.onload = onload
-	//Dummy reciever just to probe things are working.
-	
-	function onLoad(){
-		var canvas = document.getElementById("board");
-		var context = canvas.getContext("2d");
-		var mBoard = new board(context);
-		var chromecastApp = new cast.receiver.Receiver("a5db9048-8024-476f-9b3d-73fad64f328c", 
-			[cast.TicTacToe.PROTOCOL ], "", 5);
-		// var favIcon = document.getElementById("favIcon");
+  <link id="favIcon" rel="icon" type="image/png" href="tictactoe.png"/>
+  <title>Tic-Tac-Toe2</title>
+  <script src="https://www.gstatic.com/cast/js/receiver/09/cast_receiver.js"></script>
+  <script src="board.js"></script>
+  <script src="tictactoe.js"></script>
+  <script type="text/javascript">
 
-		mBoard.clear();
-		mBoard.drawGrid();
-		var gameEngine = new cast.TicTacToe(mBoard);
-		gameEngine.mChannelHandler.addChannelFactory(chromecastApp.createChannelFactory(cast.TicTacToe.PROTOCOL));
-		chromecastApp.start();
-	}
+    window.onload = onLoad;
 
+    /**
+     * Initializes the receiver application and game objects, and starts the
+     * receiver.
+     */
+    function onLoad() {
+      var canvas = document.getElementById("board");
+      var context = canvas.getContext("2d");
+      var mBoard = new board(context);
+      var chromecastApp = new cast.receiver.Receiver("a5db9048-8024-476f-9b3d-73fad64f328c",
+          [ cast.TicTacToe.PROTOCOL ], "", 5);
+      var favIcon = document.getElementById("favIcon");
 
-</script>
-<style type="text/css">h2 {color: #ffffff;} </style>
-<body>
-	<h2>This is the Chromecast Against Humanity page.. nothing interesting here at the moment</h2>
-	<img src="img/piratelogo.png"><br>
-  <video id="vid" style="position:absolute;top:0;left:0;height:100%;width:100%" />
-</body>
+      mBoard.clear();
+      mBoard.drawGrid();
+      var gameEngine = new cast.TicTacToe(mBoard);
+      gameEngine.mChannelHandler.addChannelFactory(
+          chromecastApp.createChannelFactory(cast.TicTacToe.PROTOCOL));
+      chromecastApp.start();
+    }
 
+  </script>
+  <canvas id="board" width="1280" height="720" style="position:absolute;top:0;left:0;width:100%;height:100%;background:#BDBDBD" />
 </html>
