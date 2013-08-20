@@ -103,6 +103,10 @@ console.log('Creating TicTacToe object');
         this.onJoin(channel, message);
       } else if (message.command == 'leave') {
         this.onLeave(channel);
+      } else if (message.command == 'req-card') {
+        this.onRequestCards(channel, message);
+      } else if (message.command == 'play-card') {
+        this.onPlayCards(channel, message);
       } else if (message.command == 'move') {
         this.onMove(channel, message);
       } else if (message.command == 'board_layout_request') {
@@ -110,6 +114,7 @@ console.log('Creating TicTacToe object');
       } else {
         cast.log.error('Invalid message command: ' + message.command);
       }
+      //TODO: ADD Czar fuctions, remove sample methods.
     },
 
     /**
@@ -183,6 +188,20 @@ console.log('Creating TicTacToe object');
         this.mBoard.setGameAbandoned();
         this.broadcastEndGame(this.mBoard.getGameResult());
       }
+    },
+
+    /**
+     * Retrieve cards for player, only return the number requested. if no number then return no cards.
+     */
+    onRequestCards: function(channel, message){
+      console.log('****onRequestCards: ' + JSON.stringify(message));
+    },
+
+    /**
+     * Processes played cards sent from the user.
+     */
+    onPlayCards: function(channel, message){
+      console.log('****onPlayCards: ' + JSON.stringify(message));
     },
 
     /**
