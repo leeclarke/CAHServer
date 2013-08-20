@@ -47,6 +47,8 @@ var cast = window.cast || {};
     this.mPlayer2 = -1;
     this.mCurrentPlayer;
 
+console.log('Creating TicTacToe object');
+
     this.mChannelHandler =
         new cast.receiver.ChannelHandler('TicTacToeDebug');
     this.mChannelHandler.addEventListener(
