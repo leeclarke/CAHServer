@@ -86,7 +86,7 @@ function Game(id){
     this.blackCardInPlay = this.blackDeck.pop();
   };
 
-  this.getCards = function(cardNeeded) {
+  this.getCards = function(cardsNeeded) {
     var newCardsSet = [];
     for (var i = cardsNeeded - 1; i >= 0; i--) {
          newCardsSet.push(this.deck.pop());    
