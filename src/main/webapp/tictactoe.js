@@ -316,7 +316,11 @@ function Card(){
       console.log('Resp: '+JSON.stringify(newCardsSet));
 
       //get users czar status.
-      channel.send({ event: 'got_cards', imCzar: false,  newCards: newCardsSet, blackCardInPlay: this.game.blackCardInPlay});
+      try{
+        channel.send({ event: 'got_cards', imCzar: false,  newCards: newCardsSet, blackCardInPlay: this.game.blackCardInPlay});
+      } catch(err){
+        this.sendError(channel, 'Couldn\'t retrieve cards.');
+      }
     },
 
     /**
