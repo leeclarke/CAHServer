@@ -240,8 +240,15 @@ console.log('Creating TicTacToe object');
     onRequestCards: function(channel, message){
       console.log('****onRequestCards: ' + JSON.stringify(message));
       //Determine if user is Czar, get cards needed and return hand plus the next Black Card.
-
+      cardsNeeded = 10 - message.cardsInHand;
+      newCards  = [];
+      console.log('cardsNeeded='+cardsNeeded);
+      for (var i = cardsNeeded - 1; i >= 0; i--) {
+         newCards.push(TiTicTaccTacToe.CARD_DECK.pop());    
+       }; 
       
+      console.log(JSON.stringify(newCards));
+      // channel.send({ event: 'error', message: errorMessage });
     },
 
     /**
