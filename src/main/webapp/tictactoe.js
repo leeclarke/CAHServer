@@ -93,7 +93,27 @@ function Game(id){
     };
     return newCardsSet; 
   };
-}
+
+  this.getPlayerByName = function(playerName) {
+    this.players.forEach(function(plr){
+      if(plr.name == playerName){
+        return plr;
+      }
+    });
+    return;
+  };
+
+  /**
+   * Helper for looking up card references.
+   */
+  this.getCardById = function(cardId){
+    TicTacToe.CARD_DECK.forEach(function(card){
+      if(card.id == cardId){
+        return card;
+      }
+    });
+  };
+};
 
 function Player(name, channel){
   this.name = name;
@@ -325,11 +345,26 @@ function Card(){
 
     /**
      * Processes played cards sent from the user. Something needs to verify that user has submitted enough cards. maybe do this on the CC screen.
+
      */
     onPlayCards: function(channel, message){
       console.log('****onPlayCards: ' + JSON.stringify(message));
+      if(message.playerName && message.cards){
+        var player = this.game.getPlayerByName(message.playerName);
+        if(player){
+          for (i = 0; index < message.cards.length; ++i) {
+              player.submitedCards = this.game.getCardById(cards[i]);
+          }
+          channel.send({event: 'card_played', cardIds:message.cards});
+        } else{
+          //return an error.
+          this.sendError(channel, 'Invalid user name, sorry something went wrong.');
+        } 
+      }
+      
       //Get user.
       //get cards from const and then set them to the submitted of user.
+
     },
 
     /**
