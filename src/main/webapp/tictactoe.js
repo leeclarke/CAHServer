@@ -55,7 +55,7 @@ var cast = window.cast || {};
 {"id":10, "content": "Penis envy.","type": "W"},
 {"id":50, "content": "Darth Vader.", "type": "W"},
 {"id":51, "content": "Women.","type": "W"},
-{"id":52, "content": "World of Warcraft..","type": "W"}];
+{"id":52, "content": "World of Warcraft.","type": "W"}];
 
 TicTacToe.BLACK_CARD_DECK = [{"id":1000, "content": "Thats right I killed ______.  How, you ask? ______", "type": "B","pickCt":2,"draw":1},
   {"id":1001, "content": "How did I loose my verginity?", "type": "B","pickCt":1,"draw":1},
@@ -74,6 +74,8 @@ function Game(id){
   this.gameState = "PLAY"; //PLAY|REVIEW
   this.blackCardInPlay = {};
   this.players = [];
+  this.deck = [];
+  this.blackDeck = [];
 
   this.addPlayer = function(newPlayer){
     //TODO check if name already used.
@@ -81,7 +83,15 @@ function Game(id){
   };
 
   this.setBlackCard = function(){
-    this.blackCardInPlay = TicTacToe.BLACK_CARD_DECK.pop();
+    this.blackCardInPlay = this.blackDeck.pop();
+  };
+
+  this.getCards = function(cardNeeded) {
+    var newCardsSet = [];
+    for (var i = cardsNeeded - 1; i >= 0; i--) {
+         newCardsSet.push(this.deck.pop());    
+    };
+    return newCardsSet; 
   };
 }
 
@@ -132,8 +142,8 @@ function Card(){
         this.onChannelClosed.bind(this));
 
     //shuffle the deck
-    this.shuffleCards(TicTacToe.CARD_DECK);
-    this.shuffleCards(TicTacToe.BLACK_CARD_DECK);
+    this.game.deck = this.shuffleCards(TicTacToe.CARD_DECK);
+    this.game.blackDeck = this.shuffleCards(TicTacToe.BLACK_CARD_DECK);
 
     //Set the first black card.
     this.game.setBlackCard();
@@ -299,15 +309,13 @@ function Card(){
     onRequestCards: function(channel, message){
       console.log('****onRequestCards: ' + JSON.stringify(message));
       //Determine if user is Czar, get cards needed and return hand plus the next Black Card.
+
       var cardsNeeded = 10 - message.cardsInHand;
       console.log('cardsNeeded='+cardsNeeded);
-      var newCardsSet  = [];
-      
-      for (var i = cardsNeeded - 1; i >= 0; i--) {
-         newCardsSet.push(TicTacToe.CARD_DECK.pop());    
-       }; 
-      
+      var newCardsSet  = this.game.getCards(cardsNeeded);
       console.log('Resp: '+JSON.stringify(newCardsSet));
+
+      //get users czar status.
       channel.send({ event: 'got_cards', imCzar: false,  newCards: newCardsSet, blackCardInPlay: this.game.blackCardInPlay});
     },
 
@@ -316,7 +324,8 @@ function Card(){
      */
     onPlayCards: function(channel, message){
       console.log('****onPlayCards: ' + JSON.stringify(message));
-
+      //Get user.
+      //get cards from const and then set them to the submitted of user.
     },
 
     /**
