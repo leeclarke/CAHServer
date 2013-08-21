@@ -33,6 +33,30 @@ var cast = window.cast || {};
     X: 'X'
   };
 
+  TicTacToe.CARD_DECK = [{"id":1, "content": "Being on fire.", "type": "W"},
+{"id":2, "content": "Raceism.", "type": "W"},
+{"id":3, "content": "Old-people smell.", "type": "W"},
+{"id":4, "content": "A micropenis.", "type": "W"},
+{"id":5, "content": "Women in yoguart commercials.","type": "W"},
+{"id":6, "content": "Classist undertones.","type": "W"},
+{"id":7, "content": "Not giving a shit about the Third World.","type": "W"},
+{"id":8, "content": "Sexting.","type": "W"},
+{"id":9, "content": "Roofies.", "type": "W"},
+{"id":10, "content": "A windmill full of corpses.", "type": "W"},
+{"id":11, "content": "The gays.", "type": "W"},
+{"id":12, "content": "An oversized lollipop.", "type": "W"},
+{"id":13, "content": "African children.","type": "W"},
+{"id":14, "content": "An asymmetric boob job.","type": "W"},
+{"id":15, "content": "Bengeing and purging.","type": "W"},
+{"id":16, "content": "The hardworking Mexican.","type": "W"},
+{"id":17, "content": "An Oedipus complex.","type": "W"},
+{"id":18, "content": "A tiny horse.","type": "W"},
+{"id":19, "content": "Boogers.","type": "W"},
+{"id":10, "content": "Penis envy.","type": "W"},
+{"id":50, "content": "Darth Vader.", "type": "W"},
+{"id":51, "content": "Women.","type": "W"},
+{"id":52, "content": "World of Warcraft..","type": "W"}];
+
   /**
    * Creates a TicTacToe object with an optional board and attaches a
    * cast.receiver.ChannelHandler, which receives messages from the
@@ -59,10 +83,27 @@ console.log('Creating TicTacToe object');
     this.mChannelHandler.addEventListener(
         cast.receiver.Channel.EventType.CLOSED,
         this.onChannelClosed.bind(this));
+
+    //shuffle the deck
+    shuffleCards(TicTacToe.CARD_DECK);
   }
 
   // Adds event listening functions to TicTacToe.prototype.
   TicTacToe.prototype = {
+
+    /**
+ * Randomize array element order in-place.
+ * Using Fisher-Yates shuffle algorithm.
+ */
+  shuffleCards: function(array) {
+    for (var i = array.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+    return array;
+}
 
     /**
      * Channel opened event; checks number of open channels.
@@ -199,6 +240,7 @@ console.log('Creating TicTacToe object');
     onRequestCards: function(channel, message){
       console.log('****onRequestCards: ' + JSON.stringify(message));
       //Determine if user is Czar, get cards needed and return hand plus the next Black Card.
+
       
     },
 
