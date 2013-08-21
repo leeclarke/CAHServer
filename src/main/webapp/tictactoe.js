@@ -206,6 +206,7 @@ console.log('Creating TicTacToe object');
         console.log('end board setup');
       }
       console.log('**** End onJoin');
+      channel.send({ 'event': 'joined', 'playerName': message.name });
     },
 
     /**
@@ -242,14 +243,15 @@ console.log('Creating TicTacToe object');
       //Determine if user is Czar, get cards needed and return hand plus the next Black Card.
       var cardsNeeded = 10 - message.cardsInHand;
       console.log('cardsNeeded='+cardsNeeded);
-      var newCards  = [];
+      var newCardsSet  = [];
       
       for (var i = cardsNeeded - 1; i >= 0; i--) {
-         newCards.push(TicTacToe.CARD_DECK.pop());    
+         newCardsSet.push(TicTacToe.CARD_DECK.pop());    
        }; 
       //TODO: The debug doesnt work... but the results are correct.
-      console.log(JSON.stringify(newCards));
-      // channel.send({ event: 'error', message: errorMessage });
+      console.log('Resp: '+JSON.stringify(newCardsSet));
+
+      channel.send({ event: 'got_cards', imCzar: false,  newCards: newCardsSet);
     },
 
     /**
