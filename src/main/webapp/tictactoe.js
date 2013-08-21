@@ -245,7 +245,7 @@ console.log('Creating TicTacToe object');
       var newCards  = [];
       
       for (var i = cardsNeeded - 1; i >= 0; i--) {
-         newCards.push(TiTicTaccTacToe.CARD_DECK.pop());    
+         newCards.push(TicTaccTacToe.CARD_DECK.pop());    
        }; 
       
       console.log(JSON.stringify(newCards));
