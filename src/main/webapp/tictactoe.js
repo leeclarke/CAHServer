@@ -258,7 +258,7 @@ console.log('Creating TicTacToe object');
      * Processes played cards sent from the user. Something needs to verify that user has submitted enough cards. maybe do this on the CC screen.
      */
     onPlayCards: function(channel, message){
-      console.log('****onPlayCards: ' + JSON.stringify(message));
+      console.log('****onPlayCards: ' + JSON.stringify(message)});
 
     },
 
