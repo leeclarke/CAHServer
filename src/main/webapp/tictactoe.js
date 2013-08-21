@@ -57,6 +57,19 @@ var cast = window.cast || {};
 {"id":51, "content": "Women.","type": "W"},
 {"id":52, "content": "World of Warcraft..","type": "W"}];
 
+function Game(id){
+  this.id = id;
+  this.bossUser = "";
+  this.gameState = "PLAY"; //PLAY|REVIEW
+  this.blackCardInPlay = {};
+  this.players = [];
+
+  this.addPlayer = function(newPlayer){
+    //TODO check if name already used.
+    this.players.push(newPlayer);
+  }
+}
+
   /**
    * Creates a TicTacToe object with an optional board and attaches a
    * cast.receiver.ChannelHandler, which receives messages from the
@@ -69,8 +82,9 @@ var cast = window.cast || {};
     this.mPlayer1 = -1;
     this.mPlayer2 = -1;
     this.mCurrentPlayer;
+    this.game = new Game(0);
 
-console.log('Creating TicTacToe object');
+    console.log('Creating TicTacToe object');
 
     this.mChannelHandler =
         new cast.receiver.ChannelHandler('TicTacToeDebug');
@@ -248,9 +262,8 @@ console.log('Creating TicTacToe object');
       for (var i = cardsNeeded - 1; i >= 0; i--) {
          newCardsSet.push(TicTacToe.CARD_DECK.pop());    
        }; 
-      //TODO: The debug doesnt work... but the results are correct.
+      
       console.log('Resp: '+JSON.stringify(newCardsSet));
-
       channel.send({ event: 'got_cards', imCzar: false,  newCards: newCardsSet});
     },
 
