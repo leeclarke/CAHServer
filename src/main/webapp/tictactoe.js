@@ -95,12 +95,14 @@ function Game(id){
   };
 
   this.getPlayerByName = function(playerName) {
+    var _player = null;
     this.players.forEach(function(plr){
       if(plr.name == playerName){
-        return plr;
+        _player = plr;
+        return;
       }
     });
-    return;
+    return _player;
   };
 
   /**
