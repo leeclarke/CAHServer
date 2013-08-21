@@ -85,7 +85,7 @@ console.log('Creating TicTacToe object');
         this.onChannelClosed.bind(this));
 
     //shuffle the deck
-    shuffleCards(TicTacToe.CARD_DECK);
+    this.shuffleCards(TicTacToe.CARD_DECK);
   }
 
   // Adds event listening functions to TicTacToe.prototype.
