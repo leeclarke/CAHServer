@@ -192,16 +192,22 @@ console.log('Creating TicTacToe object');
 
     /**
      * Retrieve cards for player, only return the number requested. if no number then return no cards.
+     * Msg format:  {"isCzar":true|false, "blackCardInPlay":{cardType}, "newCards":[{cardType},{cardType},...]}
+     * @param {cardsInHand|int} message contains card count of playesrs current hand.
+     *
      */
     onRequestCards: function(channel, message){
       console.log('****onRequestCards: ' + JSON.stringify(message));
+      //Determine if user is Czar, get cards needed and return hand plus the next Black Card.
+      
     },
 
     /**
-     * Processes played cards sent from the user.
+     * Processes played cards sent from the user. Something needs to verify that user has submitted enough cards. maybe do this on the CC screen.
      */
     onPlayCards: function(channel, message){
       console.log('****onPlayCards: ' + JSON.stringify(message));
+
     },
 
     /**

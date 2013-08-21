@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script type="text/javascript">
+
+		window.onload = onLoad;
+
+		function onLoad(){
+			var c = document.getElementById("c");
+			var ctx = c.getContext("2d");
+
+			var Card = function(value){
+				this._value = value;
+			    this.draw = function() {
+			        ctx.strokeRect(this.x, this.y, 30, 50);
+			        ctx.strokeText(this._value, this.x+10, this.y+25);
+			    };
+			    this.setPosition = function(x, y) {
+			        this.x = x;
+			        this.y = y;   
+			    };
+			};
+			Card.prototype = Card;
+
+			var Hand = function() {
+				this.cards=[];
+			    this.draw = function() {
+			        this.cards.forEach(function (c, i) {
+			            c.draw();
+			        });
+			    };
+			    this.generateCards = function(n) {
+			        for (var i = 0; i < n; i++) {
+			            this.cards.push(new Card(i));
+			        }
+			    };
+			    this.setPosition = function(x, y) {
+			        this.x = x;
+			        this.y = y;
+			        this.cards.forEach(function _each(c, i) {
+			            c.setPosition(x + i*40, y);
+			        });
+			    };
+			};
+			
+			Hand.prototype = Hand;
+
+			var h = new Hand();
+
+			h.generateCards(4);
+			                                 
+			h.setPosition(10, 10);
+			                                 
+			h.draw();
+		}
+
+		</script>
+	</head>
+	<body>
+		<canvas id="c"></canvas>
+	</body>
+</html>
