@@ -247,7 +247,7 @@ console.log('Creating TicTacToe object');
       for (var i = cardsNeeded - 1; i >= 0; i--) {
          newCards.push(TicTacToe.CARD_DECK.pop());    
        }; 
-      
+      //TODO: The debug doesnt work... but the results are correct.
       console.log(JSON.stringify(newCards));
       // channel.send({ event: 'error', message: errorMessage });
     },
