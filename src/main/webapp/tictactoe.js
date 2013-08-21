@@ -108,12 +108,15 @@ function Game(id){
   /**
    * Helper for looking up card references.
    */
-  this.getCardById = function(cardId){
+  this.getCardById = function(cardId){;
+    var crd;
     TicTacToe.CARD_DECK.forEach(function(card){
       if(card.id == cardId){
-        return card;
+        crd = card;
+        return
       }
     });
+    return crd;
   };
 };
 
