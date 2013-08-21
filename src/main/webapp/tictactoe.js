@@ -57,6 +57,17 @@ var cast = window.cast || {};
 {"id":51, "content": "Women.","type": "W"},
 {"id":52, "content": "World of Warcraft..","type": "W"}];
 
+TicTacToe.BLACK_CARD_DECK = [{"id":1000, "content": "Thats right I killed ______.  How, you ask? ______", "type": "B","pickCt":2,"draw":1},
+  {"id":1001, "content": "How did I loose my verginity?", "type": "B","pickCt":1,"draw":1},
+  {"id":1002, "content": "Why can't I sleep at night?", "type": "B","pickCt":1,"draw":1},
+  {"id":1003, "content": "What's that smell?", "type": "B","pickCt":1,"draw":1},
+  {"id":1004, "content": "I got 99 problems but ______ ain't one.", "type": "B","pickCt":1,"draw":1},
+  {"id":1004, "content": "Maybe she's born with it, maybe it's ______.", "type": "B","pickCt":1,"draw":1},
+  {"id":1004, "content": "What's the next Happy Meal toy?", "type": "B","pickCt":1,"draw":1},
+  {"id":1004, "content": "Here is the church. Here is the steeple. Open the door and here is ______.", "type": "B","pickCt":1,"draw":1},
+  {"id":1004, "content": "It's a pitty that kids these days are all involved with ______.", "type": "B","pickCt":1,"draw":1},
+  ];
+
 function Game(id){
   this.id = id;
   this.bossUser = "";
@@ -67,7 +78,29 @@ function Game(id){
   this.addPlayer = function(newPlayer){
     //TODO check if name already used.
     this.players.push(newPlayer);
-  }
+  };
+
+  this.setBlackCard = function(){
+    this.blackCardInPlay = TicTacToe.BLACK_CARD_DECK.pop();
+  };
+}
+
+function Player(name, channel){
+  this.name = name;
+  this.channel = channel;
+  this.awesomePoints = 0;
+  this.imCzar = false;
+  this.state = 'ACTIVE';  //ACTIVE|DROPED
+  this.submitedCards = [];
+
+
+}
+/* Defined for compleatness and reference, data will usually be geenrated or loaded.*/
+function Card(){
+  this.content = '';
+  this.type  = 'W'; //W|B
+  this.pickCt = 1;
+  this.draw = 1;
 }
 
   /**
@@ -100,24 +133,28 @@ function Game(id){
 
     //shuffle the deck
     this.shuffleCards(TicTacToe.CARD_DECK);
+    this.shuffleCards(TicTacToe.BLACK_CARD_DECK);
+
+    //Set the first black card.
+    this.game.setBlackCard();
   }
 
   // Adds event listening functions to TicTacToe.prototype.
   TicTacToe.prototype = {
 
     /**
- * Randomize array element order in-place.
- * Using Fisher-Yates shuffle algorithm.
- */
-  shuffleCards: function(array) {
-      for (var i = array.length - 1; i > 0; i--) {
-          var j = Math.floor(Math.random() * (i + 1));
-          var temp = array[i];
-          array[i] = array[j];
-          array[j] = temp;
-      }
-      return array;
-  },
+     * Randomize array element order in-place.
+     * Using Fisher-Yates shuffle algorithm.
+     */
+    shuffleCards: function(array) {
+        for (var i = array.length - 1; i > 0; i--) {
+            var j = Math.floor(Math.random() * (i + 1));
+            var temp = array[i];
+            array[i] = array[j];
+            array[j] = temp;
+        }
+        return array;
+    },
 
     /**
      * Channel opened event; checks number of open channels.
@@ -169,7 +206,7 @@ function Game(id){
       } else {
         cast.log.error('Invalid message command: ' + message.command);
       }
-      //TODO: ADD Czar fuctions, remove sample methods.
+      
     },
 
     /**
@@ -181,7 +218,14 @@ function Game(id){
     onJoin: function(channel, message) {
       console.log('****onJoin: ' + JSON.stringify(message));
 
-      if ((this.mPlayer1 != -1) &&
+      if(message.name){
+        this.game.addPlayer(new Player(message.name, channel));
+      } else {
+        this.sendError(channel, 'Required player name is missing!');
+        return;
+      }
+
+      /*if ((this.mPlayer1 != -1) &&
           (this.mPlayer1.channel == channel)) {
         this.sendError(channel, 'You are already ' +
                        this.mPlayer1.player +
@@ -212,7 +256,7 @@ function Game(id){
 
       console.log('mPlayer1: ' + this.mPlayer1);
       console.log('mPlayer2: ' + this.mPlayer2);
-
+*/
       if (this.mPlayer1 != -1 && this.mPlayer2 != -1) {
         console.log('board setup');
         this.mBoard.reset();
@@ -264,7 +308,7 @@ function Game(id){
        }; 
       
       console.log('Resp: '+JSON.stringify(newCardsSet));
-      channel.send({ event: 'got_cards', imCzar: false,  newCards: newCardsSet});
+      channel.send({ event: 'got_cards', imCzar: false,  newCards: newCardsSet, blackCardInPlay: this.game.blackCardInPlay});
     },
 
     /**
