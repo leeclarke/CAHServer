@@ -349,10 +349,10 @@ function Card(){
           }
           var ids = this.stringToArray(message.cards);
  
-          player.submitedCards.push(this.game.getCardById(ids[0]));
-          //for (i = 0; i < ids.length; ++i) {
-          //    player.submitedCards.push(this.game.getCardById(cards[i]))  ;
-          //}
+          //player.submitedCards.push(this.game.getCardById(ids[0]));
+          for (i = 0; i < ids.length; ++i) {
+              player.submitedCards.push(this.game.getCardById(ids[i]))  ;
+          }
 
         } else{
           //return an error.
