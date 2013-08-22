@@ -130,7 +130,7 @@ function Game(id){
   this.getCardById = function(cardId){;
     var crd;
     TicTacToe.CARD_DECK.forEach(function(card){
-      if(card.id == cardId){
+      if(card.id == parseInt(cardId)){
         crd = card;
         return
       }
