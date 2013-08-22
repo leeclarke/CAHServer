@@ -335,8 +335,6 @@ function Card(){
           this.sendError(channel, 'Invalid user name, sorry something went wrong.');
         } 
       }
-      
-      //Get user.
       //get cards from const and then set them to the submitted of user.
 
     },
