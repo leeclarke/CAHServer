@@ -346,8 +346,9 @@ function Card(){
         if(player){
           var ids = this.stringToArray(message.cards);
 //TODO: This for loop causes the app to crash... makes no sence. 
+          //player.submitedCards = this.game.getCardById(cards[0]);
           for (i = 0; i < ids.length; ++i) {
-              player.submitedCards = this.game.getCardById(cards[i]);
+              player.submitedCards.push(this.game.getCardById(cards[i]));
           }
           channel.send({event: 'card_played', cardIds:message.cards});
         } else{
