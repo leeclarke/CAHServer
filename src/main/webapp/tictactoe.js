@@ -353,7 +353,7 @@ function Card(){
           //for (i = 0; i < ids.length; ++i) {
           //    player.submitedCards.push(this.game.getCardById(cards[i]))  ;
           //}
-          channel.send({event: 'card_played', cardIds:ids});
+          channel.send({event: 'card_played'});//, cardIds:ids});
         } else{
           //return an error.
           this.sendError(channel, 'Invalid user name, sorry something went wrong.');
