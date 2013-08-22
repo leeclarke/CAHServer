@@ -349,10 +349,20 @@ function Card(){
           }
           var ids = this.stringToArray(message.cards);
           
-          ids.forEach(function(id){
+          if(ids.length > 0){
+            player.submitedCards.push(this.game.getCardById(ids[0]));  
+          } 
+          if(ids.length > 1){
+            player.submitedCards.push(this.game.getCardById(ids[1]));  
+          }
+          
+          //Only 2 cards are sent so since all efforts at a for loop fail, jsut call them directly.
+          
+
+          /*ids.forEach(function(id){
             var tmpCard  = this.game.getCardById(id);
             player.submitedCards.push(tmpCard);
-          });
+          });*/
 
           //player.submitedCards.push(this.game.getCardById(ids[0]));
           //for (i = 0; i < ids.length; ++i) {
