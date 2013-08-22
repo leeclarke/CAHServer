@@ -260,44 +260,12 @@ function Card(){
         return;
       }
 
-      /*if ((this.mPlayer1 != -1) &&
-          (this.mPlayer1.channel == channel)) {
-        this.sendError(channel, 'You are already ' +
-                       this.mPlayer1.player +
-                       ' You aren\'t allowed to play against yourself.');
-        return;
-      }
-      if ((this.mPlayer2 != -1) &&
-          (this.mPlayer2.channel == channel)) {
-        this.sendError(channel, 'You are already ' +
-                       this.mPlayer2.player +
-                       ' You aren\'t allowed to play against yourself.');
-        return;
-      }
-
-      if (this.mPlayer1 == -1) {
-        this.mPlayer1 = new Object();
-        this.mPlayer1.name = message.name;
-        this.mPlayer1.channel = channel;
-      } else if (this.mPlayer2 == -1) {
-        this.mPlayer2 = new Object();
-        this.mPlayer2.name = message.name;
-        this.mPlayer2.channel = channel;
-      } else {
-        console.log('Unable to join a full game.');
-        this.sendError(channel, 'Game is full.');
-        return;
-      }
-
-      console.log('mPlayer1: ' + this.mPlayer1);
-      console.log('mPlayer2: ' + this.mPlayer2);
-*/
-      if (this.mPlayer1 != -1 && this.mPlayer2 != -1) {
+   /*   if (this.mPlayer1 != -1 && this.mPlayer2 != -1) {
         console.log('board setup');
         this.mBoard.reset();
         this.startGame_();
         console.log('end board setup');
-      }
+      }*/
       console.log('**** End onJoin');
       channel.send({ 'event': 'joined', 'playerName': message.name });
     },
@@ -357,6 +325,7 @@ function Card(){
       if(message.playerName && message.cards){
         var player = this.game.getPlayerByName(message.playerName);
         if(player){
+          var ids = stringToArray(message.cards);
           for (i = 0; index < message.cards.length; ++i) {
               player.submitedCards = this.game.getCardById(cards[i]);
           }
@@ -371,6 +340,16 @@ function Card(){
       //get cards from const and then set them to the submitted of user.
 
     },
+
+    stringToArray: function(inStr){
+      var rtnArray = [];
+      if(inStr){
+        //trim off brackets if present
+        inStr = inStr.replace("[","").replace("]","");
+        rtnArray = inStr.split(",");    
+      }
+      return rtnArray;
+    }
 
     /**
      * Move event: checks whether a valid move was made and updates the board
