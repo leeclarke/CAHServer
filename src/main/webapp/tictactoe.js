@@ -348,20 +348,24 @@ function Card(){
             player.submitedCards = [];
           }
           var ids = this.stringToArray(message.cards);
-//TODO: This for loop causes the app to crash... makes no sence. 
+ 
           player.submitedCards.push(this.game.getCardById(ids[0]));
           //for (i = 0; i < ids.length; ++i) {
           //    player.submitedCards.push(this.game.getCardById(cards[i]))  ;
           //}
-          var respIds = ids.join();
-          channel.send({event: 'card_played' , cardIds: repsIds});
+
         } else{
           //return an error.
           this.sendError(channel, 'Invalid user name, sorry something went wrong.');
         } 
       }
-      //get cards from const and then set them to the submitted of user.
-
+      
+       try{
+          channel.send({event: 'card_played' , cards: message.cards});
+        } catch(err){
+          console.log("ERROR: " + err);
+          this.sendError(channel, 'Couldn\'t retrieve cards.');
+        }
     },
 
     stringToArray: function(inStr){
