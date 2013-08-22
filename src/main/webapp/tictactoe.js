@@ -349,7 +349,7 @@ function Card(){
         rtnArray = inStr.split(",");    
       }
       return rtnArray;
-    }
+    },
 
     /**
      * Move event: checks whether a valid move was made and updates the board
