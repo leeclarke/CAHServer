@@ -14,6 +14,8 @@
      * receiver.
      */
     function onLoad() {
+      cast.receiver.logger.setLevelValue(0);
+      
       var canvas = document.getElementById("board");
       var context = canvas.getContext("2d");
       var mBoard = new board(context);
