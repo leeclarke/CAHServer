@@ -348,12 +348,15 @@ function Card(){
             player.submitedCards = [];
           }
           var ids = this.stringToArray(message.cards);
- 
-          //player.submitedCards.push(this.game.getCardById(ids[0]));
-          for (i = 0; i < ids.length; ++i) {
-              player.submitedCards.push(this.game.getCardById(ids[i]))  ;
-          }
+          
+          ids.forEach(function(id){
+            player.submitedCards.push(this.game.getCardById(id));
+          });
 
+          //player.submitedCards.push(this.game.getCardById(ids[0]));
+          //for (i = 0; i < ids.length; ++i) {
+          //    player.submitedCards.push(this.game.getCardById(ids[i]))  ;
+          //}
         } else{
           //return an error.
           this.sendError(channel, 'Invalid user name, sorry something went wrong.');
