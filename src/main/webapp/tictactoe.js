@@ -344,13 +344,16 @@ function Card(){
       if(message.playerName && message.cards){
         var player = this.game.getPlayerByName(message.playerName);
         if(player){
+          if(!player.submitedCards) {
+            player.submitedCards = [];
+          }
           var ids = this.stringToArray(message.cards);
 //TODO: This for loop causes the app to crash... makes no sence. 
-          player.submitedCards = this.game.getCardById(ids[0]);
+          player.submitedCards.push(this.game.getCardById(ids[0]));
           //for (i = 0; i < ids.length; ++i) {
           //    player.submitedCards.push(this.game.getCardById(cards[i]))  ;
           //}
-          channel.send({event: 'card_played', cardIds:message.cards});
+          channel.send({event: 'card_played', cardIds:ids});
         } else{
           //return an error.
           this.sendError(channel, 'Invalid user name, sorry something went wrong.');
