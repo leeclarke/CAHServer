@@ -350,7 +350,8 @@ function Card(){
           var ids = this.stringToArray(message.cards);
           
           ids.forEach(function(id){
-            player.submitedCards.push(this.game.getCardById(id));
+            var tmpCard  = this.game.getCardById(id);
+            player.submitedCards.push(tmpCard);
           });
 
           //player.submitedCards.push(this.game.getCardById(ids[0]));

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <link id="favIcon" rel="icon" type="image/png" href="tictactoe.png"/>
-  <title>Tic-Tac-Toe2</title>
+  <title>Chromecast Against Humanity</title>
   <script src="https://www.gstatic.com/cast/js/receiver/1.0/cast_receiver.js"></script>
   <script src="board.js"></script>
   <script src="tictactoe.js"></script>
@@ -15,7 +15,7 @@
      */
     function onLoad() {
       cast.receiver.logger.setLevelValue(0);
-      
+
       var canvas = document.getElementById("board");
       var context = canvas.getContext("2d");
       var mBoard = new board(context);
