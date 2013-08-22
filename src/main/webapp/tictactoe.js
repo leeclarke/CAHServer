@@ -186,8 +186,8 @@ function Card(){
         this.onChannelClosed.bind(this));
 
     //shuffle the deck
-    this.game.deck = this.game.shuffleCards(TicTacToe.CARD_DECK);
-    this.game.blackDeck = this.game.shuffleCards(TicTacToe.BLACK_CARD_DECK);
+    this.game.deck = this.game.shuffleCards(TicTacToe.CARD_DECK.slice());
+    this.game.blackDeck = this.game.shuffleCards(TicTacToe.BLACK_CARD_DECK.slice());
 
     //Set the first black card.
     this.game.setBlackCard();
