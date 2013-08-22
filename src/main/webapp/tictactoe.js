@@ -325,7 +325,7 @@ function Card(){
       if(message.playerName && message.cards){
         var player = this.game.getPlayerByName(message.playerName);
         if(player){
-          var ids = stringToArray(message.cards);
+          var ids = this.stringToArray(message.cards);
           for (i = 0; index < message.cards.length; ++i) {
               player.submitedCards = this.game.getCardById(cards[i]);
           }
