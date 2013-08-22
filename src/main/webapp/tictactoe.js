@@ -326,7 +326,7 @@ function Card(){
         var player = this.game.getPlayerByName(message.playerName);
         if(player){
           var ids = this.stringToArray(message.cards);
-          for (i = 0; index < ids.length; ++i) {
+          for (i = 0; i < ids.length; ++i) {
               player.submitedCards = this.game.getCardById(cards[i]);
           }
           channel.send({event: 'card_played', cardIds:message.cards});
