@@ -86,8 +86,27 @@ function Game(id){
     this.blackCardInPlay = this.blackDeck.pop();
   };
 
+  /**
+   * Randomize array element order in-place.
+   * Using Fisher-Yates shuffle algorithm.
+   */
+  this.shuffleCards = function(array) {
+      for (var i = array.length - 1; i > 0; i--) {
+          var j = Math.floor(Math.random() * (i + 1));
+          var temp = array[i];
+          array[i] = array[j];
+          array[j] = temp;
+      }
+      return array;
+  },
+
   this.getCards = function(cardsNeeded) {
     var newCardsSet = [];
+    if(this.deck.length < cardsNeeded){
+      //out of cards, shuffle.
+      this.shuffleCards(TicTacToe.CARD_DECK);
+    }
+
     for (var i = cardsNeeded - 1; i >= 0; i--) {
          newCardsSet.push(this.deck.pop());    
     };
@@ -167,8 +186,8 @@ function Card(){
         this.onChannelClosed.bind(this));
 
     //shuffle the deck
-    this.game.deck = this.shuffleCards(TicTacToe.CARD_DECK);
-    this.game.blackDeck = this.shuffleCards(TicTacToe.BLACK_CARD_DECK);
+    this.game.deck = this.game.shuffleCards(TicTacToe.CARD_DECK);
+    this.game.blackDeck = this.game.shuffleCards(TicTacToe.BLACK_CARD_DECK);
 
     //Set the first black card.
     this.game.setBlackCard();
