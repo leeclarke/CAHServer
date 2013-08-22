@@ -345,6 +345,7 @@ function Card(){
         var player = this.game.getPlayerByName(message.playerName);
         if(player){
           var ids = this.stringToArray(message.cards);
+//TODO: This for loop causes the app to crash... makes no sence. 
           for (i = 0; i < ids.length; ++i) {
               player.submitedCards = this.game.getCardById(cards[i]);
           }
