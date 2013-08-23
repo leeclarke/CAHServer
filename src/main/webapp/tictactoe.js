@@ -253,14 +253,10 @@ function Card(){
         this.onRequestCards(channel, message);
       } else if (message.command == 'play-card') {
         this.onPlayCards(channel, message);
-      } else if (message.command == 'move') {
-        this.onMove(channel, message);
-      } else if (message.command == 'board_layout_request') {
-        this.onBoardLayoutRequest(channel);
       } else {
         cast.log.error('Invalid message command: ' + message.command);
       }
-      
+      //TODO: Add CardCzar Methods.
     },
 
     /**
@@ -390,97 +386,6 @@ function Card(){
         rtnArray = inStr.split(",");    
       }
       return rtnArray;
-    },
-
-    /**
-     * Move event: checks whether a valid move was made and updates the board
-     * as necessary.
-     * @param {cast.receiver.channel} channel the source of the move, which
-     *     determines the player.
-     * @param {Object|string} message contains the row and column of the move.
-     */
-    onMove: function(channel, message) {
-      console.log('****onMove: ' + JSON.stringify(message));
-      var isMoveValid;
-
-      if ((this.mPlayer1 == -1) || (this.mPlayer2 == -1)) {
-        console.log('Looks like one of the players is not there');
-        console.log('mPlayer1: ' + this.mPlayer1);
-        console.log('mPlayer2: ' + this.mPlayer2);
-        return;
-      }
-
-      if (this.mPlayer1.channel == channel) {
-        if (this.mPlayer1.player == this.mCurrentPlayer) {
-          if (this.mPlayer1.player == TicTacToe.PLAYER.X) {
-            isMoveValid = this.mBoard.drawCross(message.row, message.column);
-          } else {
-            isMoveValid = this.mBoard.drawNaught(message.row, message.column);
-          }
-        } else {
-          console.log('Ignoring the move. It\'s not your turn.');
-          this.sendError(channel, 'It\'s not your turn.');
-          return;
-        }
-      } else if (this.mPlayer2.channel == channel) {
-        if (this.mPlayer2.player == this.mCurrentPlayer) {
-          if (this.mPlayer2.player == TicTacToe.PLAYER.X) {
-            isMoveValid = this.mBoard.drawCross(message.row, message.column);
-          } else {
-            isMoveValid = this.mBoard.drawNaught(message.row, message.column);
-          }
-        } else {
-          console.log('Ignoring the move. It\'s not your turn.');
-          this.sendError(channel, 'It\'s not your turn.');
-          return;
-        }
-      } else {
-        console.log('Ignorning message. Someone other than the current' +
-            'players sent a move.');
-        this.sendError(channel, 'You are not playing the game');
-        return;
-      }
-
-      if (isMoveValid === false) {
-        this.sendError(channel, 'Your last move was invalid');
-        return;
-      }
-
-      var isGameOver = this.mBoard.isGameOver();
-      this.broadcast({ event: 'moved',
-                       player: this.mCurrentPlayer,
-                       row: message.row,
-                       column: message.column,
-                       game_over: isGameOver });
-
-      console.log('isGameOver: ' + isGameOver);
-      console.log('winningLoc: ' + this.mBoard.getWinningLocation());
-
-      // When the game should end
-      if (isGameOver == true) {
-        this.broadcastEndGame(this.mBoard.getGameResult(),
-            this.mBoard.getWinningLocation());
-      }
-      // Switch current player
-      this.mCurrentPlayer = (this.mCurrentPlayer == TicTacToe.PLAYER.X) ?
-          TicTacToe.PLAYER.O : TicTacToe.PLAYER.X;
-    },
-
-    /**
-     * Request event for the board layout: sends the current layout of pieces
-     * on the board through the channel.
-     * @param {cast.receiver.channel} channel the channel the event came from.
-     */
-    onBoardLayoutRequest: function(channel) {
-      console.log('****onBoardLayoutRequest');
-      var boardLayout = [];
-      for (var i = 0; i < 3; i++) {
-        for (var j = 0; j < 3; j++) {
-          boardLayout[i * 3 + j] = this.mBoard.mBoard[i][j];
-        }
-      }
-      channel.send({ 'event': 'board_layout_response',
-                     'board': boardLayout });
     },
 
     sendError: function(channel, errorMessage) {
