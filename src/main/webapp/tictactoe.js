@@ -164,8 +164,8 @@ function Card(){
    * @param {board} opt_board an optional game board.
    * @constructor
    */
-  function TicTacToe(opt_board) {
-    this.mBoard = opt_board;
+  function TicTacToe() {
+    //this.mBoard = opt_board;
     this.mPlayer1 = -1;
     this.mPlayer2 = -1;
     this.mCurrentPlayer;
