@@ -34,8 +34,18 @@
 
   </script>
   <script src="js/controllers.js"></script>
+  <style type="text/css">
+    skull {margin: 0 auto; }
+  </style>
 </head>
 <body ng-controller="GameDisplayCtrl">
-    <img src="img/piratelogo.png" style="position:absolute;top:200;left:200;"><br>
+    <img src="img/piratelogo.png" class="skull"><br>
+    <div>
+      <ul>
+        <li ng-repeat="player in players">
+          {{player.name}}
+        </li>
+      </ul>
+    </div>
  </body>
 </html>
