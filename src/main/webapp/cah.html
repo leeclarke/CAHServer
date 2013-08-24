@@ -15,7 +15,7 @@
      * receiver.
      */
     function onLoad() {
-      cast.receiver.logger.setLevelValue(0);
+   /*   cast.receiver.logger.setLevelValue(0);
 
      // var canvas = document.getElementById("board");
       //var context = canvas.getContext("2d");
@@ -29,13 +29,14 @@
       var gameEngine = new cast.TicTacToe();
       gameEngine.mChannelHandler.addChannelFactory(
           chromecastApp.createChannelFactory(cast.TicTacToe.PROTOCOL));
-      chromecastApp.start();
+      chromecastApp.start();*/
     }
 
   </script>
   <script src="js/controllers.js"></script>
   <style type="text/css">
     skull {margin: 0 auto; }
+    .li { color: #FFF;    }
   </style>
 </head>
 <body ng-controller="GameDisplayCtrl">
