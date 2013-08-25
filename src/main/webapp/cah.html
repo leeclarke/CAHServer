@@ -53,14 +53,15 @@
     
     <div class="row">
       <div class="col-md-4">
-        <ul>
-          <li ng-repeat="player in players">
-            {{player.name}}
-          </li>
-        </ul>
+        <div class="row" ng-repeat="player in cahGame.game.players">
+          <div class="col-md-2">{{player.imCzar}}</div>
+          <div class="col-md-2">{{player.submitedCards.length}}</div>
+          <div class="col-md-4">{{player.name}}</div>
+          <div class="col-md-4">{{player.awesomePoints}}</div>
+        </div>
       </div>
       <div class="col-md-8">
-        Cards here!
+        Cards go here!
       </div>
     </div>
   
