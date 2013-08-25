@@ -68,8 +68,9 @@ TicTacToe.BLACK_CARD_DECK = [{"id":1000, "content": "Thats right I killed ______
   {"id":1004, "content": "It's a pitty that kids these days are all involved with ______.", "type": "B","pickCt":1,"draw":1},
   ];
 
-function Game(id){
+function Game(id, updateListener){
   this.id = id;
+  this.updateListener = updateListener;
   this.pointGoal = 7;
   this.turnNumber = 1;
   this.bossUser = "";
@@ -82,6 +83,7 @@ function Game(id){
   this.addPlayer = function(newPlayer){
     //TODO check if name already used.
     this.players.push(newPlayer);
+    updateListener();
   };
 
   this.setBlackCard = function(){
@@ -166,12 +168,13 @@ function Card(){
    * @param {board} opt_board an optional game board.
    * @constructor
    */
-  function TicTacToe() {
+  function TicTacToe(updateListener) {
     //this.mBoard = opt_board;
+    this.updateListener = updateListener;
     this.mPlayer1 = -1;
     this.mPlayer2 = -1;
     this.mCurrentPlayer;
-    this.game = new Game(0);
+    this.game = new Game(0, updateListener);
 
     console.log('Creating TicTacToe object');
 

@@ -2,6 +2,12 @@ function GameDisplayCtrl($scope) {
 
 	$scope.players = [{"name":"Player one"},{"name":"Test"},{"name":"Jack"}];
 
+
+	updateData = function(){
+		console.log("Call to update data bindings.");
+		$scope.$apply();
+	}
+
 	  cast.receiver.logger.setLevelValue(0);
 
      // var canvas = document.getElementById("board");
@@ -13,7 +19,7 @@ function GameDisplayCtrl($scope) {
 
       //mBoard.clear();
       //mBoard.drawGrid();
-      $scope.cahGame = new cast.TicTacToe();
+      $scope.cahGame = new cast.TicTacToe(updateData);
       $scope.cahGame.mChannelHandler.addChannelFactory(chromecastApp.createChannelFactory(cast.TicTacToe.PROTOCOL));
       chromecastApp.start();
 }
