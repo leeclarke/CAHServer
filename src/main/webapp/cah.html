@@ -55,7 +55,7 @@
     <div class="row plyr-list">
       <div class="col-md-4">
         <div class="row" ng-repeat="player in cahGame.game.players">
-          <div class="col-md-1"><img src="img/{{player.imCzarImg}}"></div>
+          <div class="col-md-1"><img ng-src="img/{{player.imCzarImg}}"></div>
           <div class="col-md-1">{{player.submitedCards.length}}</div>
           <div class="col-md-6">{{player.name}}</div>
           <div class="col-md-4">{{player.awesomePoints}}</div>
