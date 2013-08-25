@@ -70,6 +70,8 @@ TicTacToe.BLACK_CARD_DECK = [{"id":1000, "content": "Thats right I killed ______
 
 function Game(id){
   this.id = id;
+  this.pointGoal = 7;
+  this.turnNumber = 1;
   this.bossUser = "";
   this.gameState = "PLAY"; //PLAY|REVIEW
   this.blackCardInPlay = {};
