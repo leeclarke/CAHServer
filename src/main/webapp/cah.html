@@ -38,13 +38,19 @@
   <style type="text/css">
     skull {margin: 0 auto; }
     li { color: #FFF;    }
-    body{padding: 10; color: #FFFFFF;}
+    body{padding: 10; color: #000;}
+    div {color: #FFF;}
   </style>
 </head>
 <body ng-controller="GameDisplayCtrl">
   <div class="container">
-    <img src="img/piratelogo.png" class="skull">&nbsp;Game Id:{{game.id}} &nbsp;&nbps; GameStatus: {{game.gameState}}}<br>
-    <h2 style="color:#FFFFFF; ">Chromecast Against Humanity</h2>
+    <div class="row">
+      <div><img src="img/piratelogo.png" class="skull"> <h2 style="color:#FFFFFF; ">Chromecast Against Humanity</h2></div>
+    </div>
+    <div class="row">
+        <div>&nbsp;Game Id:{{game.id}} &nbsp;&nbps; GameStatus: {{game.gameState}}}</div>
+    </div>
+    
     <div class="row">
       <div class="col-md-4">
         <ul>
@@ -53,11 +59,11 @@
           </li>
         </ul>
       </div>
-
       <div class="col-md-8">
         Cards here!
       </div>
     </div>
+  
   </div>
  </body>
 </html>
