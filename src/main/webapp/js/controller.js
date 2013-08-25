@@ -3,9 +3,9 @@ function GameDisplayCtrl($scope) {
 	$scope.players = [{"name":"Player one"},{"name":"Test"},{"name":"Jack"}];
 
 
-	updateData = function(){
+	updateData = function(result){
 		console.log("Call to update data bindings.");
-		$scope.$apply();
+		$scope.$apply(result);
 	}
 
 	  cast.receiver.logger.setLevelValue(0);
