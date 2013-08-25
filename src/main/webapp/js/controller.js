@@ -13,7 +13,7 @@ function GameDisplayCtrl($scope) {
 
       //mBoard.clear();
       //mBoard.drawGrid();
-      $scope.game = new cast.TicTacToe();
-      $scope.game.mChannelHandler.addChannelFactory(chromecastApp.createChannelFactory(cast.TicTacToe.PROTOCOL));
+      $scope.cahGame = new cast.TicTacToe();
+      $scope.cahGame.mChannelHandler.addChannelFactory(chromecastApp.createChannelFactory(cast.TicTacToe.PROTOCOL));
       chromecastApp.start();
 }
