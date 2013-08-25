@@ -5,7 +5,7 @@
   <title>Chromecast Against Humanity</title>
   <script src="https://www.gstatic.com/cast/js/receiver/1.0/cast_receiver.js"></script>
   <script src="js/lib/angular.js"></script>
-  <script src="tictactoe.js"></script>
+  <script src="cahGame.js"></script>
   <script type="text/javascript">
 
     window.onload = onLoad;
@@ -51,9 +51,15 @@
     <div class="row">
         <div>Game Id:{{cahGame.game.id}} | GameStatus: {{cahGame.game.gameState}}</div>
     </div>
-    
+  
     <div class="row plyr-list">
       <div class="col-md-4">
+        <div>
+          <div class="col-md-1"> </div>
+          <div class="col-md-1"> </div>
+          <div class="col-md-6">Player</div>
+          <div class="col-md-4">Points</div>
+        </div>
         <div class="row" ng-repeat="player in cahGame.game.players">
           <div class="col-md-1"><img ng-src="img/{{player.imCzarImg}}"></div>
           <div class="col-md-1">{{player.submitedCards.length}}</div>
