@@ -1,6 +1,6 @@
 function GameDisplayCtrl($scope) {
 
-	$scope.phones = [{"name":"Player one"},{"name":"Test"},{"name":"Jack"}];
+	$scope.players = [{"name":"Player one"},{"name":"Test"},{"name":"Jack"}];
 
 	  cast.receiver.logger.setLevelValue(0);
 
