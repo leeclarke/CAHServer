@@ -83,7 +83,7 @@ function Game(id, updateListener){
   this.addPlayer = function(newPlayer){
     //TODO check if name already used.
     
-    updateListener(this.players.push(newPlayer););
+    updateListener(this.players.push(newPlayer));
   };
 
   this.setBlackCard = function(){
