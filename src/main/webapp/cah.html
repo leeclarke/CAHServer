@@ -33,22 +33,31 @@
     }
 
   </script>
+  <link href="css/bootstrap.css" rel="stylesheet">
   <script src="js/controller.js"></script>
   <style type="text/css">
     skull {margin: 0 auto; }
     li { color: #FFF;    }
-    body{padding: 10}
+    body{padding: 10; color: #FFFFFF;}
   </style>
 </head>
 <body ng-controller="GameDisplayCtrl">
+  <div class="container">
     <img src="img/piratelogo.png" class="skull">&nbsp;Game Id:{{game.id}} &nbsp;&nbps; GameStatus: {{game.gameState}}}<br>
     <h2 style="color:#FFFFFF; ">Chromecast Against Humanity</h2>
-    <div>
-      <ul>
-        <li ng-repeat="player in players">
-          {{player.name}}
-        </li>
-      </ul>
+    <div class="row">
+      <div class="col-md-4">
+        <ul>
+          <li ng-repeat="player in players">
+            {{player.name}}
+          </li>
+        </ul>
+      </div>
+
+      <div class="col-md-8">
+        Cards here!
+      </div>
     </div>
+  </div>
  </body>
 </html>
