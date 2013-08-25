@@ -36,30 +36,32 @@
   <link href="css/bootstrap.css" rel="stylesheet">
   <script src="js/controller.js"></script>
   <style type="text/css">
-    skull {margin: 0 auto; }
     li { color: #FFF;    }
     body{padding: 10; color: #FFFFFF; background-color: #000000}
     div {color: #FFF;}
+    .plyr-list {border-color: red;  border-width:2px;}
+    img{visibility: }
   </style>
 </head>
 <body ng-controller="GameDisplayCtrl">
   <div class="container">
     <div class="row">
-      <div><img src="img/piratelogo.png" class="skull"> <h2 style="color:#FFFFFF; ">Chromecast Against Humanity</h2></div>
+      <div><img src="img/piratelogo.png"> <h2 style="color:#FFFFFF; ">Chromecast Against Humanity</h2></div>
     </div>
     <div class="row">
         <div>Game Id:{{cahGame.game.id}} | GameStatus: {{cahGame.game.gameState}}</div>
     </div>
     
-    <div class="row">
+    <div class="row plyr-list">
       <div class="col-md-4">
         <div class="row" ng-repeat="player in cahGame.game.players">
-          <div class="col-md-2">{{player.imCzar}}</div>
-          <div class="col-md-2">{{player.submitedCards.length}}</div>
-          <div class="col-md-4">{{player.name}}</div>
+          <div class="col-md-1"><img src="img/{{player.imCzarImg}}"></div>
+          <div class="col-md-1">{{player.submitedCards.length}}</div>
+          <div class="col-md-6">{{player.name}}</div>
           <div class="col-md-4">{{player.awesomePoints}}</div>
         </div>
       </div>
+
       <div class="col-md-8">
         Cards go here!
       </div>

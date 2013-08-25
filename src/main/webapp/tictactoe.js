@@ -151,7 +151,13 @@ function Player(name, channel){
   this.state = 'ACTIVE';  //ACTIVE|DROPED
   this.submitedCards = [];
 
-
+  this.imCzarImg = function(){
+    if(this.imCzar){
+      return "wt_crown.png";
+    } else {
+      return "black.png";
+    }
+  }
 }
 /* Defined for compleatness and reference, data will usually be geenrated or loaded.*/
 function Card(){
@@ -169,7 +175,6 @@ function Card(){
    * @constructor
    */
   function TicTacToe(updateListener) {
-    //this.mBoard = opt_board;
     this.updateListener = updateListener;
     this.mPlayer1 = -1;
     this.mPlayer2 = -1;
