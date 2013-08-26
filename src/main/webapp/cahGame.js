@@ -79,6 +79,7 @@ function Game(id, updateListener){
   this.players = [];
   this.deck = [];
   this.blackDeck = [];
+  this.submittedCards = [];
 
   this.addPlayer = function(newPlayer){
     //TODO check if name already used.
@@ -131,7 +132,7 @@ function Game(id, updateListener){
   /**
    * Helper for looking up card references.
    */
-  this.getCardById = function(cardId){;
+  this.getCardById = function(cardId){
     var crd;
     TicTacToe.CARD_DECK.forEach(function(card){
       if(card.id == parseInt(cardId)){
@@ -141,6 +142,28 @@ function Game(id, updateListener){
     });
     return crd;
   };
+
+  this.addPlayerCards = function(player, cardIds){
+    var cards = [];
+
+    if(ids.length > 0){
+      var card = this.game.getCardById(ids[0]);
+      card.playerName = player.name;
+      //TODO: remove card from hand, maybe change getCardById to pullCardById nad do remove there
+      cards.push(card);  
+    } 
+    if(ids.length > 1){
+      var card1 = this.game.getCardById(ids[1]);
+      card1.playerName = player.name;
+      //TODO: remove card from hand, maybe change getCardById to pullCardById nad do remove there
+      cards.push(card1);  
+    }
+    this.submittedCards.push(cards);
+  }
+
+  this.getSubmittedCards = function(){
+
+  }
 };
 
 function Player(name, channel){
@@ -264,6 +287,10 @@ function Card(){
         this.onRequestCards(channel, message);
       } else if (message.command == 'play-card') {
         this.onPlayCards(channel, message);
+      } else if (message.command == 'czar-review') {
+        this.onCzarReview(channel, message);
+      } else if (message.command == 'czar-pick-winner') {
+        this.onCzarPickWinner(channel, message);
       } else {
         cast.log.error('Invalid message command: ' + message.command);
       }
@@ -355,14 +382,8 @@ function Card(){
             player.submitedCards = [];
           }
           var ids = this.stringToArray(message.cards);
-          
-          if(ids.length > 0){
-            player.submitedCards.push(this.game.getCardById(ids[0]));  
-          } 
-          if(ids.length > 1){
-            player.submitedCards.push(this.game.getCardById(ids[1]));  
-          }
-          
+          this.game.addPlayerCards(player, ids);
+
           //Only 2 cards are sent so since all efforts at a for loop fail, jsut call them directly.
           
 
@@ -388,6 +409,26 @@ function Card(){
           this.sendError(channel, 'Couldn\'t retrieve cards.');
         }
     },
+
+    onCzarReview: function(){
+      console.log('****onCzarReview: ' + JSON.stringify(message));
+      //return all submitted cards for review.
+       //get users czar status.
+      var reviewCardsSet  = this.game.getSubmittedCards();
+      console.log('Resp: '+JSON.stringify(newCardsSet));
+
+      try{
+        channel.send({ event: 'got_cards', reviewCards: reviewCardsSet, blackCardInPlay: this.game.blackCardInPlay});
+      } catch(err){
+        this.sendError(channel, 'Couldn\'t retrieve cards.');
+      }
+    }
+
+    onCzarPickWinner: function(){
+      // winningCard
+      console.log('****onCzarPickWinner: ' + JSON.stringify(message));
+//TODO:
+    }
 
     stringToArray: function(inStr){
       var rtnArray = [];
