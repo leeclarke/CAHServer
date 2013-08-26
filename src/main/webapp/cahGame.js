@@ -152,11 +152,12 @@ function Player(name, channel){
   this.submitedCards = [];
 
   this.imCzarImg = function(){
+      var imgPath = "img/wt_circle.png"; 
     if(this.imCzar){
-      return "img/wt_crown.png";
-    } else {
-      return "img/wt_circle.png";
-    }
+      imgPath = "img/wt_crown.png";
+    } 
+    console.log("imgPath="+imgPath);
+    return imgPath;
   }
 }
 /* Defined for compleatness and reference, data will usually be geenrated or loaded.*/
