@@ -41,12 +41,13 @@
     div {color: #FFF;}
     .plyr-list {border-color: red;  border-width:2px;}
     img{visibility: }
+    .cah-title{}
   </style>
 </head>
 <body ng-controller="GameDisplayCtrl">
   <div class="container">
     <div class="row">
-      <div><img src="img/piratelogo.png"> <h2 style="color:#FFFFFF; ">Chromecast Against Humanity</h2></div>
+      <div><img src="img/piratelogo.png"> <div class="cah-title">Chromecast Against Humanity</div><h2 style="color:#FFFFFF; ">Chromecast Against Humanity</h2></div>
     </div>
     <div class="row">
         <div>Game Id:{{cahGame.game.id}} | GameStatus: {{cahGame.game.gameState}}</div>
@@ -55,7 +56,7 @@
     <div class="row plyr-list">
       <div class="col-md-4">
         <div>
-          <div class="col-md-1"> </div>
+          <div class="col-md-1">Czar</div>
           <div class="col-md-1"> </div>
           <div class="col-md-6">Player</div>
           <div class="col-md-4">Points</div>
