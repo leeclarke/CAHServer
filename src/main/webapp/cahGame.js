@@ -153,9 +153,9 @@ function Player(name, channel){
 
   this.imCzarImg = function(){
     if(this.imCzar){
-      return "wt_crown.png";
+      return "img/wt_crown.png";
     } else {
-      return "black.png";
+      return "img/black.png";
     }
   }
 }
