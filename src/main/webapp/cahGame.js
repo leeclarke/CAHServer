@@ -155,7 +155,7 @@ function Player(name, channel){
     if(this.imCzar){
       return "img/wt_crown.png";
     } else {
-      return "img/black.png";
+      return "img/wt_circle.png";
     }
   }
 }
