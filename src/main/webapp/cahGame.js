@@ -149,13 +149,11 @@ function Game(id, updateListener){
     if(ids.length > 0){
       var card = this.game.getCardById(ids[0]);
       card.playerName = player.name;
-      //TODO: remove card from hand, maybe change getCardById to pullCardById nad do remove there
       cards.push(card);  
     } 
     if(ids.length > 1){
       var card1 = this.game.getCardById(ids[1]);
       card1.playerName = player.name;
-      //TODO: remove card from hand, maybe change getCardById to pullCardById nad do remove there
       cards.push(card1);  
     }
     this.submittedCards.push(cards);
@@ -410,7 +408,7 @@ function Card(){
         }
     },
 
-    onCzarReview: function(){
+    onCzarReview: function(channel, message){
       console.log('****onCzarReview: ' + JSON.stringify(message));
       //return all submitted cards for review.
        //get users czar status.
@@ -424,7 +422,7 @@ function Card(){
       }
     }
 
-    onCzarPickWinner: function(){
+    onCzarPickWinner: function(channel, message){
       // winningCard
       console.log('****onCzarPickWinner: ' + JSON.stringify(message));
 //TODO:
