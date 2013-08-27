@@ -82,7 +82,7 @@ function Game(id, updateListener){
   this.submittedCards = [];
 
   this.addPlayer = function(newPlayer){
-    if(thi.getPlayerByName(newPlayer)) {
+    if(this.getPlayerByName(newPlayer)) {
       updateListener(this.players.push(newPlayer));
     } else {
       console.log("Player " + newPlayer + "already logged in!");
