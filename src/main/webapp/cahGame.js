@@ -87,7 +87,7 @@ function Game(id, updateListener){
   this.addPlayer = function(newPlayer){
     if(this.getPlayerByName(newPlayer.name) == null) {
       if(this.players.length == 0){
-        newPlayer.isCzar = true; //The one who starts the game is czar first.
+        newPlayer.imCzar = true; //The one who starts the game is czar first.
       }
       updateListener(this.players.push(newPlayer));
     } else {
