@@ -67,7 +67,9 @@ TicTacToe.BLACK_CARD_DECK = [{"id":1000, "content": "Thats right I killed ______
   {"id":1004, "content": "Here is the church. Here is the steeple. Open the door and here is ______.", "type": "B","pickCt":1,"draw":1},
   {"id":1004, "content": "It's a pitty that kids these days are all involved with ______.", "type": "B","pickCt":1,"draw":1},
   ];
-
+/**
+ * Game Object
+ */
 function Game(id, updateListener){
   this.id = id;
   this.updateListener = updateListener;
@@ -80,9 +82,13 @@ function Game(id, updateListener){
   this.deck = [];
   this.blackDeck = [];
   this.submittedCards = [];
+  this.czarId = 0; //The one who starts the game is czar first.
 
   this.addPlayer = function(newPlayer){
     if(this.getPlayerByName(newPlayer.name) == null) {
+      if(this.players.length == 0){
+        newPlayer.isCzar = true; //The one who starts the game is czar first.
+      }
       updateListener(this.players.push(newPlayer));
     } else {
       console.log("Player " + newPlayer + "already logged in!");
@@ -162,6 +168,9 @@ function Game(id, updateListener){
   };
 };
 
+/**
+ * Player
+ */
 function Player(name, channel){
   this.name = name;
   this.channel = channel;
@@ -345,23 +354,29 @@ function Card(){
      * Retrieve cards for player, only return the number requested. if no number then return no cards.
      * Msg format:  {"isCzar":true|false, "blackCardInPlay":{cardType}, "newCards":[{cardType},{cardType},...]}
      * @param {cardsInHand|int} message contains card count of playesrs current hand.
+     * @param {playerName"String}
      *
      */
     onRequestCards: function(channel, message){
       console.log('****onRequestCards: ' + JSON.stringify(message));
       //Determine if user is Czar, get cards needed and return hand plus the next Black Card.
+      if(message.playerName){
+        var player = this.game.getPlayerByName(message.playerName);
 
-      var cardsNeeded = 10 - message.cardsInHand;
-      console.log('cardsNeeded='+cardsNeeded);
-      var newCardsSet  = this.game.getCards(cardsNeeded);
-      console.log('Resp: '+JSON.stringify(newCardsSet));
+        if(player){
+          var cardsNeeded = 10 - message.cardsInHand;
+          console.log('cardsNeeded='+cardsNeeded);
+          var newCardsSet  = this.game.getCards(cardsNeeded);
+          console.log('Resp: '+JSON.stringify(newCardsSet));
 
-      //get users czar status.
-      try{
-        channel.send({ event: 'got_cards', imCzar: false,  newCards: newCardsSet, blackCardInPlay: this.game.blackCardInPlay});
-      } catch(err){
-        this.sendError(channel, 'Couldn\'t retrieve cards.');
+          try{
+            channel.send({ event: 'got_cards', imCzar: player.imCzar,  newCards: newCardsSet, blackCardInPlay: this.game.blackCardInPlay});
+          } catch(err){
+            this.sendError(channel, 'Couldn\'t retrieve cards.');
+          }
+        }
       }
+      this.sendError(channel, 'Couldn\'t retrieve cards, no play info.');
     },
 
     /**
