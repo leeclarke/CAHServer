@@ -82,9 +82,11 @@ function Game(id, updateListener){
   this.submittedCards = [];
 
   this.addPlayer = function(newPlayer){
-    //TODO check if name already used.
-    
-    updateListener(this.players.push(newPlayer));
+    if(thi.getPlayerByName(newPlayer)) {
+      updateListener(this.players.push(newPlayer));
+    } else {
+      console.log("Player " + newPlayer + "already logged in!");
+    }
   };
 
   this.setBlackCard = function(){
@@ -288,7 +290,6 @@ function Card(){
       } else {
         cast.log.error('Invalid message command: ' + message.command);
       }
-      //TODO: Add CardCzar Methods.
     },
 
     /**
@@ -368,6 +369,7 @@ function Card(){
 
      */
     onPlayCards: function(channel, message){
+      //TODO: Add check to prevent user from submitting more cards if already submitted?
       console.log('****onPlayCards: ' + JSON.stringify(message));
       if(message.playerName && message.cards){
         var player = this.game.getPlayerByName(message.playerName);
@@ -409,7 +411,7 @@ function Card(){
       //return all submitted cards for review.
        //get users czar status.
       var reviewCardsSet  = this.game.submittedCards;
-      console.log('Resp: '+JSON.stringify(newCardsSet));
+      console.log('Resp: '+JSON.stringify(reviewCardsSet));
 
       try{
         channel.send({ event: 'got_cards', reviewCards: reviewCardsSet, blackCardInPlay: this.game.blackCardInPlay});
@@ -421,7 +423,7 @@ function Card(){
     onCzarPickWinner: function(channel, message){
       // winningCard
       console.log('****onCzarPickWinner: ' + JSON.stringify(message));
-//TODO:
+//TODO: add point to winner,  clear selected 
     },
 
     stringToArray: function(inStr){
