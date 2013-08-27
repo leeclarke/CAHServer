@@ -166,7 +166,7 @@ function Game(id, updateListener){
       card1.playerName = player.name;
       cards.push(card1);  
     }
-    this.submittedCards.push(cards);
+    updateListener(this.submittedCards.push(cards));
   };
 };
 
@@ -283,8 +283,6 @@ function Card(){
       var message = event.message;
       var channel = event.target;
       console.log('********onMessage********' + JSON.stringify(message));
-      console.log('mPlayer1: ' + this.mPlayer1);
-      console.log('mPlayer2: ' + this.mPlayer2);
 
       if (message.command == 'join') {
         this.onJoin(channel, message);
@@ -377,8 +375,9 @@ function Card(){
             this.sendError(channel, 'Couldn\'t retrieve cards.');
           }
         }
+      } else {
+       this.sendError(channel, 'Couldn\'t retrieve cards, no player info.');
       }
-      this.sendError(channel, 'Couldn\'t retrieve cards, no play info.');
     },
 
     /**
