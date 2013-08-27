@@ -434,7 +434,7 @@ function Card(){
       console.log('Resp: '+JSON.stringify(reviewCardsSet));
 
       try{
-        channel.send({ event: 'got_cards', reviewCards: reviewCardsSet, blackCardInPlay: this.game.blackCardInPlay});
+        channel.send({ event: 'czar_review', reviewCards: reviewCardsSet, blackCardInPlay: this.game.blackCardInPlay});
       } catch(err){
         this.sendError(channel, 'Couldn\'t retrieve cards.');
       }
