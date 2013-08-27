@@ -425,7 +425,12 @@ function Card(){
       console.log('****onCzarReview: ' + JSON.stringify(message));
       //return all submitted cards for review.
        //get users czar status.
-      var reviewCardsSet  = this.game.submittedCards;
+      //var reviewCardsSet  = this.game.submittedCards;
+      
+      //TODO: Remove testing code.
+      var reviewCardsSet  = this.game.getCards(3);
+
+
       console.log('Resp: '+JSON.stringify(reviewCardsSet));
 
       try{
