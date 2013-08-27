@@ -109,7 +109,7 @@ function Game(id, updateListener){
     var newCardsSet = [];
     if(this.deck.length < cardsNeeded){
       //out of cards, shuffle.
-      this.shuffleCards(TicTacToe.CARD_DECK);
+      this.deck = this.shuffleCards(TicTacToe.CARD_DECK);
     }
 
     for (var i = cardsNeeded - 1; i >= 0; i--) {
