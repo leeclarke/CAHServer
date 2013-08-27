@@ -56,13 +56,13 @@
     <div class="row plyr-list">
       <div class="col-md-4">
         <div>
-          <div class="col-md-1">Czar</div>
-          <div class="col-md-1">Cards</div>
+          <div class="col-md-1"></div>
+          <div class="col-md-1"></div>
           <div class="col-md-6">Player</div>
           <div class="col-md-4">Points</div>
         </div>
         <div class="row" ng-repeat="player in cahGame.game.players">
-          <div class="col-md-2"><img ng-src="{{player.imCzarImg}}"></div>
+          <div class="col-md-2"><img ng-src="{{player.imCzar}}"></div>
           <div class="col-md-2">{{player.submitedCards.length}}</div>
           <div class="col-md-5">{{player.name}}</div>
           <div class="col-md-4">{{player.awesomePoints}}</div>
