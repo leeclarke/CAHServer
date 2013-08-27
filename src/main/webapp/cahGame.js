@@ -157,11 +157,7 @@ function Game(id, updateListener){
       cards.push(card1);  
     }
     this.submittedCards.push(cards);
-  }
-
-  this.getSubmittedCards = function(){
-
-  }
+  };
 };
 
 function Player(name, channel){
@@ -412,7 +408,7 @@ function Card(){
       console.log('****onCzarReview: ' + JSON.stringify(message));
       //return all submitted cards for review.
        //get users czar status.
-      var reviewCardsSet  = this.game.getSubmittedCards();
+      var reviewCardsSet  = this.game.submittedCards;
       console.log('Resp: '+JSON.stringify(newCardsSet));
 
       try{
