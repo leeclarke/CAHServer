@@ -147,12 +147,12 @@ function Game(id, updateListener){
     var cards = [];
 
     if(cardIds.length > 0){
-      var card = this.game.getCardById(cardIds[0]);
+      var card = this.getCardById(cardIds[0]);
       card.playerName = player.name;
       cards.push(card);  
     } 
     if(cardIds.length > 1){
-      var card1 = this.game.getCardById(cardIds[1]);
+      var card1 = this.getCardById(cardIds[1]);
       card1.playerName = player.name;
       cards.push(card1);  
     }
