@@ -420,13 +420,13 @@ function Card(){
       } catch(err){
         this.sendError(channel, 'Couldn\'t retrieve cards.');
       }
-    }
+    },
 
     onCzarPickWinner: function(channel, message){
       // winningCard
       console.log('****onCzarPickWinner: ' + JSON.stringify(message));
 //TODO:
-    }
+    },
 
     stringToArray: function(inStr){
       var rtnArray = [];
