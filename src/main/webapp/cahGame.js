@@ -57,7 +57,8 @@ var cast = window.cast || {};
 {"id":51, "content": "Women.","type": "W"},
 {"id":52, "content": "World of Warcraft.","type": "W"}];
 
-TicTacToe.BLACK_CARD_DECK = [{"id":1000, "content": "Thats right I killed ______.  How, you ask? ______", "type": "B","pickCt":2,"draw":1},
+TicTacToe.BLACK_CARD_DECK = [
+  //{"id":1000, "content": "Thats right I killed ______.  How, you ask? ______", "type": "B","pickCt":2,"draw":1},
   {"id":1001, "content": "How did I loose my verginity?", "type": "B","pickCt":1,"draw":1},
   {"id":1002, "content": "Why can't I sleep at night?", "type": "B","pickCt":1,"draw":1},
   {"id":1003, "content": "What's that smell?", "type": "B","pickCt":1,"draw":1},
@@ -151,6 +152,7 @@ function Game(id, updateListener){
     return crd;
   };
 
+//TODO: Refactor to support 2 pick cards. Extract name from card and create Map.
   this.addPlayerCards = function(player, cardIds){
     var cards = [];
 
@@ -429,6 +431,9 @@ function Card(){
       
       //TODO: Remove testing code.
       var reviewCardsSet  = this.game.getCards(3);
+      reviewCardsSet[0].playerName = "Joe";
+      reviewCardsSet[1].playerName = "Eli";
+      reviewCardsSet[2].playerName = "Test101";
 
 
       console.log('Resp: '+JSON.stringify(reviewCardsSet));
@@ -443,7 +448,12 @@ function Card(){
     onCzarPickWinner: function(channel, message){
       // winningCard
       console.log('****onCzarPickWinner: ' + JSON.stringify(message));
-//TODO: add point to winner,  clear selected 
+      if(message.playerName){
+        var player = this.game.getPlayerByName(message.playerName);
+        player.awesomePoints += 1;
+      } else{
+        this.sendError(channel, 'Something went really wrong subbmitting the winner.');
+      }
     },
 
     stringToArray: function(inStr){
